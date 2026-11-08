@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Code X</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #111;
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* =========================
+   COMMON
+========================= */
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   LOGIN SCREEN
+========================= */
+
+#loginScreen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #050505;
+    padding: 20px;
+}
+
+.loginBox {
+    width: 100%;
+    max-width: 380px;
+    background: #181818;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.5);
+    text-align: center;
+}
+
+.logo {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: #fff;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.loginBox h1 {
+    margin-top: 18px;
+    margin-bottom: 25px;
+    font-size: 32px;
+    letter-spacing: 1px;
+}
+
+.input {
+    width: 100%;
+    padding: 15px;
+    margin: 8px 0;
+    border-radius: 12px;
+    border: 1px solid #333;
+    background: #0e0e0e;
+    color: white;
+    outline: none;
+}
+
+.input:focus {
+    border-color: white;
+}
+
+.signBtn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 12px;
+    border-radius: 12px;
+    background: white;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.googleBtn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 12px;
+    background: #242424;
+    color: white;
+    font-size: 15px;
+}
+
+.smallText {
+    color: #888;
+    margin: 15px 0 5px;
+    font-size: 13px;
+}
+
+
+/* =========================
+   APP
+========================= */
+
+#app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #111;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topBar {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    background: #181818;
+    border-bottom: 1px solid #292929;
+    position: relative;
+}
+
+.appLogo {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 12px;
+}
+
+.appName {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.topSpacer {
+    flex: 1;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.plus {
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    color: black;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #181818;
+}
+
+
+/* =========================
+   WORKSPACE
+========================= */
+
+.workspace {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+}
+
+
+/* =========================
+   LEFT SIDEBAR
+========================= */
+
+.sidebar {
+    width: 125px;
+    background: #151515;
+    border-right: 1px solid #292929;
+    padding: 12px 8px;
+    overflow-y: auto;
+}
+
+.sideTitle {
+    font-size: 12px;
+    color: #777;
+    margin: 8px 5px;
+    text-transform: uppercase;
+}
+
+.langBtn {
+    width: 100%;
+    padding: 12px 5px;
+    margin-bottom: 7px;
+    border-radius: 10px;
+    background: transparent;
+    color: #bbb;
+    text-align: left;
+}
+
+.langBtn:hover,
+.langBtn.active {
+    background: #292929;
+    color: white;
+}
+
+
+/* =========================
+   EDITOR AREA
+========================= */
+
+.editorArea {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================
+   PAGE TABS
+========================= */
+
+.pageTabs {
+    height: 45px;
+    background: #191919;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    border-bottom: 1px solid #292929;
+}
+
+.pageTab {
+    min-width: 90px;
+    padding: 13px 15px;
+    background: #202020;
+    color: #aaa;
+    border-right: 1px solid #333;
+    font-size: 13px;
+}
+
+.pageTab.active {
+    background: #111;
+    color: white;
+}
+
+
+/* =========================
+   EDITOR
+========================= */
+
+.editor {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    background: #0b0b0b;
+}
+
+.lineNumbers {
+    width: 42px;
+    padding: 15px 5px;
+    color: #555;
+    background: #101010;
+    text-align: right;
+    line-height: 1.6;
+    overflow: hidden;
+    user-select: none;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+#codeEditor {
+    flex: 1;
+    resize: none;
+    border: none;
+    outline: none;
+    background: #0b0b0b;
+    color: #f1f1f1;
+    padding: 15px;
+    line-height: 1.6;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+
+/* =========================
+   BOTTOM BAR
+========================= */
+
+.bottomBar {
+    height: 58px;
+    background: #181818;
+    border-top: 1px solid #292929;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+}
+
+.languageText {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.runBtn {
+    margin-left: auto;
+    background: white;
+    color: black;
+    border-radius: 12px;
+    padding: 12px 22px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   RIGHT MENU
+========================= */
+
+.menuBtn {
+    margin-left: 15px;
+    width: 38px;
+    height: 38px;
+    background: transparent;
+    color: white;
+    font-size: 25px;
+}
+
+.menu {
+    position: absolute;
+    right: 12px;
+    top: 58px;
+    width: 190px;
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 20;
+    box-shadow: 0 15px 40px rgba(0,0,0,.5);
+}
+
+.menu button {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: white;
+    text-align: left;
+}
+
+.menu button:hover {
+    background: #333;
+}
+
+
+/* =========================
+   STORAGE
+========================= */
+
+.storagePanel {
+    position: absolute;
+    left: 125px;
+    top: 65px;
+    bottom: 58px;
+    width: 230px;
+    background: #171717;
+    border-right: 1px solid #333;
+    z-index: 10;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.storageTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.storageTitle button {
+    background: white;
+    color: black;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.file {
+    background: #242424;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.fileName {
+    flex: 1;
+    cursor: pointer;
+}
+
+.deleteFile {
+    background: transparent;
+    color: #ff5d5d;
+    font-size: 16px;
+}
+
+
+/* =========================
+   OUTPUT
+========================= */
+
+#outputScreen {
+    position: fixed;
+    inset: 0;
+    background: white;
+    color: black;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+}
+
+.outputTop {
+    height: 60px;
+    background: #181818;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.outputTitle {
+    font-weight: bold;
+}
+
+.closeOutput {
+    margin-left: auto;
+    background: white;
+    color: black;
+    border-radius: 8px;
+    padding: 9px 15px;
+}
+
+#outputFrame {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background: white;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:600px) {
+
+    .sidebar {
+        width: 95px;
+    }
+
+    .storagePanel {
+        left: 95px;
+        width: 210px;
+    }
+
+    .appName {
+        font-size: 18px;
+    }
+
+    .question {
+        font-size: 28px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<div id="loginScreen">
+
+    <div class="loginBox">
+
+        <div class="logo">
+            CX
+        </div>
+
+        <h1>Code X</h1>
+
+        <input
+            id="loginName"
+            class="input"
+            type="text"
+            placeholder="Name"
+        >
+
+        <input
+            id="loginPassword"
+            class="input"
+            type="password"
+            placeholder="Password"
+        >
+
+        <button
+            class="signBtn"
+            onclick="login()">
+            Sign In
+        </button>
+
+        <div class="smallText">
+            OR
+        </div>
+
+        <button
+            class="googleBtn"
+            onclick="googleLogin()">
+            🔵 Sign in with Google
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN APP
+===================================================== -->
+
+<div id="app" class="hidden">
+
+
+    <!-- TOP BAR -->
+
+    <div class="topBar">
+
+        <div class="appLogo">
+            CX
+        </div>
+
+        <div class="appName">
+            Code X
+        </div>
+
+        <div class="topSpacer"></div>
+
+
+        <!-- Avatar -->
+
+        <div
+            class="avatar"
+            onclick="chooseAvatar()">
+
+            <span id="avatarLetter">
+                U
+            </span>
+
+            <img
+                id="avatarImage"
+                class="hidden"
+                alt="Avatar"
+            >
+
+            <div class="plus">
+                +
+            </div>
+
+        </div>
+
+
+        <!-- Three dot menu -->
+
+        <button
+            class="menuBtn"
+            onclick="toggleMenu()">
+
+            ⋮
+
+        </button>
+
+
+        <div
+            id="menu"
+            class="menu hidden">
+
+            <button onclick="exitApp()">
+                🚪 Exit
+            </button>
+
+            <button onclick="saveCurrentPage()">
+                💾 Save
+            </button>
+
+            <button onclick="saveAsStorage()">
+                📁 Save as Storage
+            </button>
+
+            <button onclick="newPage()">
+                ➕ New Page
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- WORKSPACE -->
+
+    <div class="workspace">
+
+
+        <!-- LEFT LANGUAGE BAR -->
+
+        <div class="sidebar">
+
+            <div class="sideTitle">
+                Languages
+            </div>
+
+            <button
+                class="langBtn active"
+                onclick="selectLanguage('JavaScript')">
+
+                🟨 JavaScript
+
+            </button>
+
+            <button
+                class="langBtn"
+                onclick="selectLanguage('HTML')">
+
+                🌐 HTML
+
+            </button>
+
+            <button
+                class="langBtn"
+                onclick="selectLanguage('Python')">
+
+                🐍 Python
+
+            </button>
+
+            <button
+                class="langBtn"
+                onclick="selectLanguage('C')">
+
+                © C
+
+            </button>
+
+        </div>
+
+
+
+        <!-- EDITOR -->
+
+        <div class="editorArea">
+
+
+            <!-- PAGE TABS -->
+
+            <div
+                id="pageTabs"
+                class="pageTabs">
+            </div>
+
+
+            <!-- CODE EDITOR -->
+
+            <div class="editor">
+
+                <div
+                    id="lineNumbers"
+                    class="lineNumbers">
+                    1
+                </div>
+
+                <textarea
+                    id="codeEditor"
+                    spellcheck="false"
+                    placeholder="Write your code here..."></textarea>
+
+            </div>
+
+
+            <!-- BOTTOM -->
+
+            <div class="bottomBar">
+
+                <div
+                    id="languageText"
+                    class="languageText">
+
+                    JavaScript
+
+                </div>
+
+                <button
+                    class="runBtn"
+                    onclick="runCode()">
+
+                    ▶ Run
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- STORAGE PANEL -->
+
+    <div
+        id="storagePanel"
+        class="storagePanel hidden">
+
+        <div class="storageTitle">
+
+            <strong>
+                📁 Storage
+            </strong>
+
+            <button onclick="saveAsStorage()">
+                +
+            </button>
+
+        </div>
+
+        <div id="fileList"></div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     OUTPUT
+===================================================== -->
+
+<div id="outputScreen">
+
+    <div class="outputTop">
+
+        <div class="outputTitle">
+            Code X Output
+        </div>
+
+        <button
+            class="closeOutput"
+            onclick="closeOutput()">
+
+            ✕ Close
+
+        </button>
+
+    </div>
+
+    <iframe
+        id="outputFrame">
+    </iframe>
+
+</div>
+
+
+
+<!-- =====================================================
+     AVATAR INPUT
+===================================================== -->
+
+<input
+    id="avatarInput"
+    type="file"
+    accept="image/*"
+    class="hidden"
+    onchange="changeAvatar(event)"
+>
+
+
+
+<script>
+
+/* =====================================================
+   APP DATA
+===================================================== */
+
+let currentLanguage = "JavaScript";
+
+let pages = [];
+
+let currentPage = 0;
+
+let username = "User";
+
+let storageFiles =
+    JSON.parse(
+        localStorage.getItem("codeXFiles") || "[]"
+    );
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function login() {
+
+    const name =
+        document.getElementById("loginName").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    if (!name || !password) {
+
+        alert("Please enter name and password.");
+
+        return;
+    }
+
+    username = name;
+
+    localStorage.setItem(
+        "codeXUser",
+        username
+    );
+
+    openApp();
+}
+
+
+function googleLogin() {
+
+    /*
+       Version 1 demo.
+
+       Real Google OAuth needs a backend /
+       Google Cloud OAuth configuration.
+    */
+
+    username = "Google User";
+
+    localStorage.setItem(
+        "codeXUser",
+        username
+    );
+
+    openApp();
+}
+
+
+/* =====================================================
+   OPEN APP
+===================================================== */
+
+function openApp() {
+
+    document
+        .getElementById("loginScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("app")
+        .classList.remove("hidden");
+
+
+    const savedPages =
+        localStorage.getItem("codeXPages");
+
+
+    if (savedPages) {
+
+        pages = JSON.parse(savedPages);
+
+    } else {
+
+        pages = [
+            {
+                name: "new1",
+                language: "JavaScript",
+                code:
+`console.log("Welcome to Code X");`
+            }
+        ];
+
+    }
+
+
+    renderPages();
+
+    loadPage(0);
+
+    updateFiles();
+
+}
+
+
+/* =====================================================
+   DEFAULT WELCOME CODE
+===================================================== */
+
+function welcomeCode(language) {
+
+    if (language === "JavaScript") {
+
+        return `console.log("Welcome to Code X");`;
+
+    }
+
+    if (language === "HTML") {
+
+        return `
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Welcome to Code X</h1>
+
+</body>
+</html>
+`;
+
+    }
+
+    if (language === "Python") {
+
+        return `print("Welcome to Code X")`;
+
+    }
+
+    if (language === "C") {
+
+        return `#include <stdio.h>
+
+int main() {
+    printf("Welcome to Code X");
+    return 0;
+}`;
+
+    }
+
+}
+
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+function selectLanguage(language) {
+
+    currentLanguage = language;
+
+    pages[currentPage].language =
+        language;
+
+    pages[currentPage].code =
+        welcomeCode(language);
+
+    document
+        .getElementById("languageText")
+        .textContent = language;
+
+
+    document
+        .querySelectorAll(".langBtn")
+        .forEach(btn => {
+
+            btn.classList.remove("active");
+
+            if (
+                btn.textContent
+                .toLowerCase()
+                .includes(language.toLowerCase())
+            ) {
+
+                btn.classList.add("active");
+
+            }
+
+        });
+
+
+    document
+        .getElementById("codeEditor")
+        .value =
+        pages[currentPage].code;
+
+
+    updateLineNumbers();
+
+    savePages();
+}
+
+
+/* =====================================================
+   PAGE SYSTEM
+===================================================== */
+
+function renderPages() {
+
+    const tabs =
+        document.getElementById("pageTabs");
+
+    tabs.innerHTML = "";
+
+
+    pages.forEach((page, index) => {
+
+        const tab =
+            document.createElement("button");
+
+        tab.className =
+            "pageTab" +
+            (index === currentPage
+                ? " active"
+                : "");
+
+        tab.textContent =
+            page.name;
+
+        tab.onclick = () =>
+            loadPage(index);
+
+        tabs.appendChild(tab);
+
+    });
+
+}
+
+
+function loadPage(index) {
+
+    saveCurrentPage();
+
+    currentPage = index;
+
+    currentLanguage =
+        pages[index].language;
+
+    document
+        .getElementById("codeEditor")
+        .value =
+        pages[index].code;
+
+    document
+        .getElementById("languageText")
+        .textContent =
+        currentLanguage;
+
+
+    renderPages();
+
+    updateLineNumbers();
+
+}
+
+
+/* =====================================================
+   NEW PAGE
+===================================================== */
+
+function newPage() {
+
+    saveCurrentPage();
+
+    const pageNumber =
+        pages.length + 1;
+
+    pages.push({
+
+        name: "new" + pageNumber,
+
+        language: "JavaScript",
+
+        code:
+            `console.log("Welcome to Code X");`
+
+    });
+
+
+    currentPage =
+        pages.length - 1;
+
+    currentLanguage =
+        "JavaScript";
+
+
+    renderPages();
+
+    loadPage(currentPage);
+
+    savePages();
+
+    toggleMenu(false);
+
+}
+
+
+/* =====================================================
+   EDITOR
+===================================================== */
+
+const editor =
+    document.getElementById("codeEditor");
+
+editor.addEventListener(
+    "input",
+    function() {
+
+        pages[currentPage].code =
+            editor.value;
+
+        updateLineNumbers();
+
+        savePages();
+
+    }
+);
+
+
+editor.addEventListener(
+    "scroll",
+    function() {
+
+        document
+            .getElementById("lineNumbers")
+            .scrollTop =
+            editor.scrollTop;
+
+    }
+);
+
+
+function updateLineNumbers() {
+
+    const lines =
+        editor.value.split("\n").length;
+
+    let output = "";
+
+    for (
+        let i = 1;
+        i <= lines;
+        i++
+    ) {
+
+        output += i + "<br>";
+
+    }
+
+    document
+        .getElementById("lineNumbers")
+        .innerHTML = output;
+
+}
+
+
+function saveCurrentPage() {
+
+    if (!pages[currentPage]) return;
+
+    pages[currentPage].code =
+        editor.value;
+
+    pages[currentPage].language =
+        currentLanguage;
+
+    savePages();
+
+}
+
+
+function savePages() {
+
+    localStorage.setItem(
+        "codeXPages",
+        JSON.stringify(pages)
+    );
+
+}
+
+
+/* =====================================================
+   RUN CODE
+===================================================== */
+
+function runCode() {
+
+    saveCurrentPage();
+
+
+    if (
+        currentLanguage === "JavaScript"
+    ) {
+
+        runJavaScript();
+
+        return;
+
+    }
+
+
+    if (
+        currentLanguage === "HTML"
+    ) {
+
+        runHTML();
+
+        return;
+
+    }
+
+
+    if (
+        currentLanguage === "Python"
+    ) {
+
+        alert(
+            "Python execution needs a Python runtime/backend. UI is ready for the next version."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        currentLanguage === "C"
+    ) {
+
+        alert(
+            "C execution needs a compiler/backend. UI is ready for the next version."
+        );
+
+        return;
+
+    }
+
+}
+
+
+/* =====================================================
+   JAVASCRIPT RUNNER
+===================================================== */
+
+function runJavaScript() {
+
+    const code =
+        editor.value;
+
+    const outputFrame =
+        document.getElementById("outputFrame");
+
+    const safeCode =
+        code.replace(
+            /<\/script>/gi,
+            "<\\/script>"
+        );
+
+
+    const html = `
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+    font-family: Arial;
+    padding: 20px;
+    background: white;
+    color: black;
+}
+
+h1 {
+    margin-bottom: 15px;
+}
+
+#output {
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Code X Output</h1>
+
+<div id="output"></div>
+
+<script>
+
+const output =
+document.getElementById("output");
+
+const oldLog =
+console.log;
+
+console.log = function(...args) {
+
+    output.textContent +=
+        args.join(" ") + "\\n";
+
+    oldLog.apply(console, args);
+
+};
+
+try {
+
+    ${safeCode}
+
+} catch(error) {
+
+    output.textContent +=
+        "Error: " + error.message;
+
+}
+
+<\/script>
+
+</body>
+
+</html>
+`;
+
+
+    outputFrame.srcdoc =
+        html;
+
+
+    document
+        .getElementById("outputScreen")
+        .style.display =
+        "flex";
+
+}
+
+
+/* =====================================================
+   HTML RUNNER
+===================================================== */
+
+function runHTML() {
+
+    const code =
+        editor.value;
+
+    document
+        .getElementById("outputFrame")
+        .srcdoc =
+        code;
+
+
+    document
+        .getElementById("outputScreen")
+        .style.display =
+        "flex";
+
+}
+
+
+/* =====================================================
+   CLOSE OUTPUT
+===================================================== */
+
+function closeOutput() {
+
+    document
+        .getElementById("outputScreen")
+        .style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+function saveAsStorage() {
+
+    saveCurrentPage();
+
+    const defaultName =
+        pages[currentPage].name;
+
+    const name =
+        prompt(
+            "Enter file name:",
+            defaultName
+        );
+
+
+    if (!name) return;
+
+
+    const file = {
+
+        name: name,
+
+        language:
+            currentLanguage,
+
+        code:
+            editor.value
+
+    };
+
+
+    storageFiles.push(file);
+
+
+    localStorage.setItem(
+        "codeXFiles",
+        JSON.stringify(storageFiles)
+    );
+
+
+    updateFiles();
+
+    toggleMenu(false);
+
+    alert("Saved to Storage ✅");
+
+}
+
+
+function updateFiles() {
+
+    const list =
+        document.getElementById("fileList");
+
+    list.innerHTML = "";
+
+
+    if (storageFiles.length === 0) {
+
+        list.innerHTML =
+            `<p style="color:#777;font-size:13px;">
+             No files yet.
+             </p>`;
+
+        return;
+
+    }
+
+
+    storageFiles.forEach(
+        (file, index) => {
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "file";
+
+
+            const name =
+                document.createElement("div");
+
+            name.className =
+                "fileName";
+
+            name.textContent =
+                "📄 " + file.name;
+
+
+            name.onclick = () => {
+
+                openStorageFile(index);
+
+            };
+
+
+            const del =
+                document.createElement("button");
+
+            del.className =
+                "deleteFile";
+
+            del.textContent =
+                "🗑";
+
+            del.onclick = () => {
+
+                deleteStorageFile(index);
+
+            };
+
+
+            row.appendChild(name);
+
+            row.appendChild(del);
+
+            list.appendChild(row);
+
+        }
+    );
+
+}
+
+
+function openStorageFile(index) {
+
+    const file =
+        storageFiles[index];
+
+
+    pages.push({
+
+        name: file.name,
+
+        language: file.language,
+
+        code: file.code
+
+    });
+
+
+    currentPage =
+        pages.length - 1;
+
+    currentLanguage =
+        file.language;
+
+
+    renderPages();
+
+    loadPage(currentPage);
+
+    closeStorage();
+
+}
+
+
+function deleteStorageFile(index) {
+
+    if (
+        !confirm(
+            "Delete this file?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    storageFiles.splice(
+        index,
+        1
+    );
+
+
+    localStorage.setItem(
+        "codeXFiles",
+        JSON.stringify(storageFiles)
+    );
+
+
+    updateFiles();
+
+}
+
+
+/* =====================================================
+   STORAGE OPEN/CLOSE
+===================================================== */
+
+function toggleStorage() {
+
+    document
+        .getElementById("storagePanel")
+        .classList.toggle("hidden");
+
+}
+
+
+function closeStorage() {
+
+    document
+        .getElementById("storagePanel")
+        .classList.add("hidden");
+
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+function toggleMenu(force) {
+
+    const menu =
+        document.getElementById("menu");
+
+
+    if (force === false) {
+
+        menu.classList.add("hidden");
+
+        return;
+
+    }
+
+
+    menu.classList.toggle("hidden");
+
+}
+
+
+/* =====================================================
+   EXIT
+===================================================== */
+
+function exitApp() {
+
+    if (
+        confirm(
+            "Exit Code X?"
+        )
+    ) {
+
+        location.reload();
+
+    }
+
+}
+
+
+/* =====================================================
+   AVATAR
+===================================================== */
+
+function chooseAvatar() {
+
+    document
+        .getElementById("avatarInput")
+        .click();
+
+}
+
+
+function changeAvatar(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file) return;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e) {
+
+            const img =
+                document.getElementById(
+                    "avatarImage"
+                );
+
+            img.src =
+                e.target.result;
+
+            img.classList.remove(
+                "hidden"
+            );
+
+            document
+                .getElementById(
+                    "avatarLetter"
+                )
+                .classList.add(
+                    "hidden"
+                );
+
+
+            localStorage.setItem(
+                "codeXAvatar",
+                e.target.result
+            );
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =====================================================
+   LOAD AVATAR
+===================================================== */
+
+function loadAvatar() {
+
+    const saved =
+        localStorage.getItem(
+            "codeXAvatar"
+        );
+
+
+    if (!saved) return;
+
+
+    const img =
+        document.getElementById(
+            "avatarImage"
+        );
+
+
+    img.src = saved;
+
+    img.classList.remove(
+        "hidden"
+    );
+
+
+    document
+        .getElementById(
+            "avatarLetter"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+}
+
+
+/* =====================================================
+   STORAGE BUTTON
+===================================================== */
+
+/*
+   Double click / keyboard shortcut:
+   Ctrl + S = save
+*/
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            (event.ctrlKey || event.metaKey) &&
+            event.key.toLowerCase() === "s"
+        ) {
+
+            event.preventDefault();
+
+            saveCurrentPage();
+
+            alert("Saved ✅");
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadAvatar();
+
+</script>
+
+</body>
+</html> 
